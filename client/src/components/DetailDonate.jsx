@@ -2,29 +2,17 @@ import { useMutation, useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { API } from "../config/Api";
 import noImage from "../assets/images/no-image.webp";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 // import { UserContext } from "../context/UserContext";
 
 function DetailDonate() {
   const { id } = useParams();
   let navigate = useNavigate();
 
-  const [form, setForm] = useState({
-    total: "",
-  })
-
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name] : [e.target.value],
-    })
-  } 
-
   let { data: detailFund } = useQuery("detailFundCache", async () => {
     const response = await API.get(`/donation/${id}`);
     return response.data.data;
   });
-
 
   useEffect(() => {
     //change this to the script source you want to load, for example this is snap.js sandbox env
@@ -46,20 +34,20 @@ function DetailDonate() {
 
   const handleDonate = useMutation(async (e) => {
     try {
-      e.preventDefault
+
       const config = {
         headers: {
-          // Authorization: `Bearer ${localStorage.getItem('token')}`,
           'Content-type': 'application/json',
         },
       };
+
       const data = {
-        donation_id: e.donation_id,
-        total: e.total
+        total: e.total,
+        donation_id: e.donation_id
       };
 
       const body = JSON.stringify(data);
-      console.table(body)
+      console.log(body);
 
       const response = await API.post('/funder', body, config);
       console.log("donation success :", response)
@@ -145,6 +133,14 @@ function DetailDonate() {
             Donate
           </label>
 
+          <div
+            onClick={() => handleDonate.mutate({ total:100000, donation_id:1 })}
+            type="submit"
+            className="btn bg-red-700 w-full text-white font-semibold p-2 rounded-md text-center border-none hover:bg-red-900 hover:text-white mr-4"
+          >
+            Donate GUYSSSSSSSSS
+          </div>
+
           <input
             type="checkbox"
             id="my-modal-donate"
@@ -156,24 +152,24 @@ function DetailDonate() {
               htmlFor=""
             >
               <h1 className="font-bold text-2xl mb-2 text-gray-800">Nominal</h1>
-                <input
-                  onChange={handleChange}
+                {/* <input
                   name="total"
-                  value={form?.total}
+                  value=""
                   style={{ backgroundColor: "#D2D2D240" }}
                   type="number"
                   placeholder="Nominal Donation"
                   className="text-gray-600 input input-bordered w-full max-w-xs mb-3"
-                />
+                /> */}
+
                 {/* {message && message} */}
 
-                <button
-                  onClick={() => handleDonate.mutate({ total: 300000, donation_id: 2 })}
+                {/* <div
+                  onClick={() => handleDonate.mutate({ total:100000 })}
                   type="submit"
                   className="btn bg-red-700 w-full text-white font-semibold p-2 rounded-md text-center border-none hover:bg-red-900 hover:text-white mr-4"
                 >
                   Donate
-                </button>
+                </div> */}
             </label>
           </label>
         </div>

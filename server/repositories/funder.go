@@ -44,7 +44,7 @@ func (r *repository) FindFunderByStatusSucces(userId int) ([]models.Funder, erro
 
 func (r *repository) GetFunder(ID int) (models.Funder, error) {
 	var funder models.Funder
-	err := r.db.Preload("Donation").Preload("User").First(&funder).Error
+	err := r.db.Preload("Donation").Preload("User").First(&funder, ID).Error
 
 	return funder, err
 }
