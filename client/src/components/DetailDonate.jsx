@@ -93,7 +93,7 @@ function DetailDonate() {
             {detailFund?.title}
           </h1>
           <div className="flex justify-between mb-2">
-            <p className="text-red-700 font-semibold">Rp 25.000.000</p>
+            <p className="text-red-700 font-semibold">Rp {detailFund?.current_goal.toLocaleString("id-ID").replace(/,/g, ".")}</p>
             <p className="text-gray-500">gathered from</p>
             <p className="font-semibold" style={{ color: "#616161" }}>
               Rp {detailFund?.goal.toLocaleString("id-ID").replace(/,/g, ".")}
