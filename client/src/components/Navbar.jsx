@@ -7,7 +7,7 @@ import LogoutLogo from "../assets/icons/logout.png"
 
 import Login from "./Login";
 import Register from "./Register";
-import Icon from "../assets/icon.png";
+import brandLogo from "../assets/logo.png";
 import { UserContext } from "../context/UserContext";
 
 function Navbar() {
@@ -27,7 +27,7 @@ function Navbar() {
     <div className="navbar bg-red-700 px-10 flex items-center">
       <div className="flex-1">
         <Link to={"/"}>
-          <img src={Icon} alt="React Logo" />
+          <img src={brandLogo} alt="React Logo" />
         </Link>
       </div>
       <div className="flex-none">
