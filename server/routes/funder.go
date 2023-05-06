@@ -17,4 +17,5 @@ func FunderRoutes(e *echo.Group) {
 	e.GET("/funders", h.FindFunder)
 	e.GET("/funder", middleware.Auth(h.GetFunder))
 	e.POST("/funder", middleware.Auth(h.CreateFunder))
+	e.POST("/notification", h.Notification)
 }
