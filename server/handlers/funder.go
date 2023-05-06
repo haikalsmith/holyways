@@ -154,7 +154,7 @@ func SendMail(status string, funder models.Funder) {
 	if status != funder.Status && (status == "success") {
 		var CONFIG_SMTP_HOST = "smtp.gmail.com"
 		var CONFIG_SMTP_PORT = 587
-		var CONFIG_SENDER_NAME = "Holy Ways <rahmanmuhaemin@gmail.com>"
+		var CONFIG_SENDER_NAME = "HolyWays <rahmanmuhaemin@gmail.com>"
 		var CONFIG_AUTH_EMAIL = os.Getenv("EMAIL_SYSTEM")
 		var CONFIG_AUTH_PASSWORD = os.Getenv("PASSWORD_SYSTEM")
 

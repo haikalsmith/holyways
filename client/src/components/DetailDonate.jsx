@@ -2,25 +2,35 @@ import { useMutation, useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { API } from "../config/Api";
 import noImage from "../assets/images/no-image.webp";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 // import { UserContext } from "../context/UserContext";
 
 function DetailDonate() {
   const { id } = useParams();
-  // const [state] = useContext(UserContext);
   let navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    total: "",
+  })
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name] : [e.target.value],
+    })
+  } 
 
   let { data: detailFund } = useQuery("detailFundCache", async () => {
     const response = await API.get(`/donation/${id}`);
     return response.data.data;
   });
 
+
   useEffect(() => {
     //change this to the script source you want to load, for example this is snap.js sandbox env
     const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
     //change this according to your client-key
-    const myMidtransClientKey = import.meta.env
-      .VITE_REACT_APP_MIDTRANS_CLIENT_KEY;
+    const myMidtransClientKey = import.meta.env.VITE_REACT_APP_MIDTRANS_CLIENT_KEY;
 
     let scriptTag = document.createElement("script");
     scriptTag.src = midtransScriptUrl;
@@ -36,22 +46,26 @@ function DetailDonate() {
 
   const handleDonate = useMutation(async (e) => {
     try {
+      e.preventDefault
       const config = {
         headers: {
-          "Content-type": "application/json",
+          // Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-type': 'application/json',
         },
       };
       const data = {
-        total: e.total,
-        donation_id: detailFund?.id
+        donation_id: e.donation_id,
+        total: e.total
       };
 
       const body = JSON.stringify(data);
+      console.table(body)
 
-      const response = await API.post("/funder", body, config);
-      console.log("donation success :", response);
+      const response = await API.post('/funder', body, config);
+      console.log("donation success :", response)
 
       const token = response.data.data.token;
+
       window.snap.pay(token, {
         onSuccess: function (result) {
           /* You may add your own implementation here */
@@ -142,24 +156,24 @@ function DetailDonate() {
               htmlFor=""
             >
               <h1 className="font-bold text-2xl mb-2 text-gray-800">Nominal</h1>
-              <input
-                // onChange=""
-                name="nominal"
-                // value=""
-                style={{ backgroundColor: "#D2D2D240" }}
-                type="number"
-                placeholder="Nominal Donation"
-                className="text-gray-600 input input-bordered w-full max-w-xs mb-3"
-              />
-              {/* {message && message} */}
+                <input
+                  onChange={handleChange}
+                  name="total"
+                  value={form?.total}
+                  style={{ backgroundColor: "#D2D2D240" }}
+                  type="number"
+                  placeholder="Nominal Donation"
+                  className="text-gray-600 input input-bordered w-full max-w-xs mb-3"
+                />
+                {/* {message && message} */}
 
-              <button
-                onClick={() => handleDonate.mutate({ total: 1000000 })}
-                type="submit"
-                className="btn bg-red-700 w-full text-white font-semibold p-2 rounded-md text-center border-none hover:bg-red-900 hover:text-white mr-4"
-              >
-                Donate
-              </button>
+                <button
+                  onClick={() => handleDonate.mutate({ total: 300000, donation_id: 2 })}
+                  type="submit"
+                  className="btn bg-red-700 w-full text-white font-semibold p-2 rounded-md text-center border-none hover:bg-red-900 hover:text-white mr-4"
+                >
+                  Donate
+                </button>
             </label>
           </label>
         </div>
