@@ -43,6 +43,7 @@ function DetailDonate() {
       };
       const data = {
         total: e.total,
+        donation_id: detailFund.id
       };
 
       const body = JSON.stringify(data);
