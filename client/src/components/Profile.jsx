@@ -7,6 +7,11 @@ function Profile() {
     return response.data.data;
   });
 
+  const {data: funder} = useQuery("funderCache", async () => {
+    const response = await API.get("/funder")
+    return response.data.data
+})
+
   return (
     <div className="w-full h-screen" style={{backgroundColor: "#E5E5E5"}}>
     <div className="flex justify-center pt-10">
@@ -38,11 +43,15 @@ function Profile() {
       <div className="w-[300px]">
         <h1 className="text-2xl font-bold text-black mb-5">History Donation</h1>
         <div className="bg-white p-3 rounded-md">
-          <h1 className="text-black font-semibold mb-3">The Strength of a People. Power of Community</h1>
-          <p className="text-gray-500 mb-[2px]">Saturday, 12 April 2021</p>
+          <h1 className="text-black font-semibold mb-3">{funder?.donation.title}</h1>
+          <p className="text-gray-500 mb-[2px]">{funder?.donate_at}</p>
           <div className="flex justify-between items-center">
-            <p className="text-red-700">Total : Rp 45.000</p>
-            <p className="text-green-400 bg-green-200 p-2 rounded-md">Finished</p>
+            <p className="text-red-700">Total : Rp {funder?.total.toLocaleString('id-ID').replace(/,/g, '.')}</p>
+            {funder?.status == "success" ? (
+              <p className="text-green-400 bg-green-200 p-2 rounded-md">Finished</p>
+            ): (
+                <p className="text-red-400 bg-red-200 p-2 rounded-md">Pending</p>
+            )}
           </div>
         </div>
       </div>
