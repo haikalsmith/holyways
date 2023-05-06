@@ -1,0 +1,237 @@
+# FUND / DONATION IMPLEMENTATION
+
+## A. Requirements
+### 1. Get All Product
+
+>**url** = {your_host}/api/v1/funds
+**mehtod** = GET
+>**response body** = 
+
+>```json
+
+{
+  "status": "success",
+  "data": {
+    "funds": [
+      {
+        "id": 1,
+        "title": "The strength of poeple power of the community",
+        "thumbnail": "poeple-power.png",
+        "goal": 20000000,
+        "description": "Lorem Ipsum is simply dummy text of the printing ",
+        "usersDonate": [
+          {
+            "id": 1,
+            "fullName": "spiderman",
+            "email": "spiderman@gmail.com",
+            "donateAmount": 100000,
+            "status": "pending",
+            "proofAttachment": "bca-transfer.png"
+          },
+          {
+            "id": 2,
+            "fullName": "Andi",
+            "email": "andi@kfcsupport.com",
+            "donateAmount": 200000,
+            "status": "success",
+            "proofAttachment": "bni-transfer.png"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Help poor afrika poeple find water",
+        "thumbnail": "find-water.png",
+        "goal": 10000000,
+        "description": "Lorem Ipsum is simply dummy text of the printing ",
+        "usersDonate": [
+          {
+            "id": 3,
+            "fullName": "surti",
+            "email": "surti@gmail.com",
+            "donateAmount": 50000,
+            "status": "success",
+            "proofAttachment": "mandiri-transfer.png"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Help Asian to learn english faster than sinkasen train",
+        "thumbnail": "help-asian.png",
+        "goal": 90000000,
+        "description": "Lorem Ipsum is simply dummy text of the printing ",
+        "usersDonate": []
+      }
+    ]
+  }
+}
+```
+```
+
+### 2. Get Detail Fund
+>**url** = {your_host}/api/v1/fund/{fundId}
+**method** = GET
+**response body** = 
+>```json 
+{
+  "status": "success",
+  "data": {
+    "fund": {
+      "id": 1,
+      "title": "The strength of poeple power of the community",
+      "thumbnail": "poeple-power.png",
+      "goal": 20000000,
+      "description": "Lorem Ipsum is simply dummy text of the printing ",
+      "usersDonate": [
+        {
+          "id": 1,
+          "fullName": "spiderman",
+          "email": "spiderman@gmail.com",
+          "donateAmount": 100000,
+          "status": "pending",
+          "proofAttachment": "bca-transfer.png"
+        },
+        {
+          "id": 2,
+          "fullName": "Andi",
+          "email": "andi@kfcsupport.com",
+          "donateAmount": 200000,
+          "status": "success",
+          "proofAttachment": "bni-transfer.png"
+        }
+      ]
+    }
+  }
+}
+```
+
+### 3. Add Fund
+>**url** = {your_host}/api/v1/fund
+**recruitments** = For image file upload it using multer
+**method** = POST
+**request header** =
+>```json
+{
+    "Authorization": "Bearer {token}"
+}
+```
+**request body** =
+{
+  "title": "The strength of poeple power of the community",
+  "thumbnail": "poeple-power.png",
+  "goal": 20000000,
+  "description": "Lorem Ipsum is simply dummy text of the printing  "
+}
+
+
+**response body** = 
+>```json 
+{
+  "status": "success",
+  "data": {
+    "fund": {
+      "id": 1,
+      "title": "The strength of poeple power of the community",
+      "thumbnail": "poeple-power.png",
+      "goal": 20000000,
+      "description": "Lorem Ipsum is simply dummy text of the printing  ",
+      "usersDonate": []
+    }
+  }
+}
+```
+```
+
+### 4. Edit Fund
+>**url** = {your_host}/api/v1/fund/{fundId}
+**method** = PUT / PATCH
+**request header** =
+>```json
+{
+    "Authorization": "Bearer {token}"
+}
+```
+**request body** =
+{
+        "title": " The strength of poeple power of the community update ",
+}
+
+**response body** = 
+>```json 
+{
+  "status": "success",
+  "data": {
+    "fund": {
+      "id": 1,
+      "title": "The strength of poeple power of the community update",
+      "thumbnail": "poeple-power.png",
+      "goal": 20000000,
+      "description": "Lorem Ipsum is simply dummy text of the printing  ",
+      "usersDonate": [ ]
+    }
+  }
+}
+```
+
+
+### 5. Delete Fund
+>**url** = {your_host}/api/v1/product/{productId}
+**method** = DELETE
+**request header** =
+>```json
+{
+    "Authorization": "Bearer {token}"
+}
+```
+**response body** = 
+
+>```json 
+{
+  "status": "success",
+  "data": {
+    "id": 1
+  }
+}
+```
+### 6. Edit User Donate By Fund
+>**url** = {your_host}/api/v1/fund/{fundId}/{userId}
+**method** = PUT / PATCH
+**request header** =
+>```json
+{
+    "Authorization": "Bearer {token}"
+}
+```
+**request body** =
+{
+        "status": " success ",
+}
+
+**response body** = 
+>```json 
+{
+  "id": 1,
+  "title": "The strength of poeple power of the community",
+  "thumbnail": "poeple-power.png",
+  "goal": 20000000,
+  "description": "Lorem Ipsum is simply dummy text of the printing  ",
+  "usersDonate": [
+    {
+      "id": 1,
+      "fullName": "spiderman",
+      "email": "spiderman@gmail.com",
+      "donateAmount": 100000,
+      "status": "success",
+      "proofAttachment": "bca-transfer.png"
+    },
+    {
+      "id": 2,
+      "fullName": "Andi",
+      "email": "andi@kfcsupport.com",
+      "donateAmount": 200000,
+      "status": "success",
+      "proofAttachment": "bni-transfer.png"
+    }
+  ]
+}
