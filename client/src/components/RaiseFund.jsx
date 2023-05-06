@@ -12,6 +12,8 @@ function RaiseFund() {
 
   console.table(raisefund)
 
+  
+
   return (
     <div className="w-full h-[3000px]" style={{ backgroundColor: "#E5E5E5" }}>
       <div className="w-[950px] mx-auto h-screen pt-10">
