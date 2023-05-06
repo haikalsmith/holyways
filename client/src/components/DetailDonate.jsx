@@ -101,8 +101,8 @@ function DetailDonate() {
           </div>
           <progress
             className="progress progress-error w-full"
-            value="40"
-            max="100"
+            value={detailFund?.current_goal}
+            max={detailFund?.goal}
           ></progress>
           <div className="flex justify-between mb-5">
             <div className="flex gap-1 items-center">
