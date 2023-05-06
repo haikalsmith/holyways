@@ -8,6 +8,7 @@ import (
 
 type FunderRepository interface {
 	FindFunder() ([]models.Funder, error)
+	FindFunderByLogin(userId int) ([]models.Funder, error)
 	FindFunderByStatusSucces(userId int) ([]models.Funder, error)
 	FindFunderByDonationID(donationId int) ([]models.Funder, error)
 	GetFunder(ID int) (models.Funder, error)
@@ -34,6 +35,14 @@ func (r *repository) FindFunderByDonationID(donationId int) ([]models.Funder, er
 
 	return funders, err
 }
+
+func (r *repository) FindFunderByLogin(userId int) ([]models.Funder, error) {
+	var funders []models.Funder
+	err := r.db.Where("user_id", userId).Preload("Donation").Preload("User").Find(&funders).Error
+
+	return funders, err
+}
+
 
 func (r *repository) FindFunderByStatusSucces(userId int) ([]models.Funder, error) {
 	var funders []models.Funder

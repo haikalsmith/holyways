@@ -89,7 +89,7 @@ function Home() {
                   <h2 style={{color: "#616161"}} className="line-clamp-2">
                     {item?.description}
                   </h2>
-                  <progress className="progress progress-error w-full" value="40" max="100"></progress>
+                  <progress className="progress progress-error w-full" value={item?.current_goal} max={item?.goal}></progress>
                   <div className="flex items-center mt-3">
                     <p className="text-black font-semibold">Rp {item?.goal.toLocaleString('id-ID').replace(/,/g, '.')}</p>
                     <button className="bg-red-700 text-white font-semibold rounded-md py-2 px-4">Donate</button>

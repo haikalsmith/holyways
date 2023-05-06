@@ -2,10 +2,22 @@ import { useMutation, useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { API } from "../config/Api";
 import noImage from "../assets/images/no-image.webp";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 // import { UserContext } from "../context/UserContext";
 
 function DetailDonate() {
+  const [form, setForm] = useState({
+    total: "",
+    donation_id: "",
+  })
+
+  const handleOnChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    })
+  }
+
   const { id } = useParams();
   let navigate = useNavigate();
 
@@ -33,7 +45,9 @@ function DetailDonate() {
   }, []);
 
   const handleDonate = useMutation(async (e) => {
+    
     try {
+      e.preventDefault()
 
       const config = {
         headers: {
@@ -42,8 +56,8 @@ function DetailDonate() {
       };
 
       const data = {
-        total: e.total,
-        donation_id: e.donation_id
+        total: Number(form.total),
+        donation_id: Number(id),
       };
 
       const body = JSON.stringify(data);
@@ -133,14 +147,6 @@ function DetailDonate() {
             Donate
           </label>
 
-          <div
-            onClick={() => handleDonate.mutate({ total:100000, donation_id:1 })}
-            type="submit"
-            className="btn bg-red-700 w-full text-white font-semibold p-2 rounded-md text-center border-none hover:bg-red-900 hover:text-white mr-4"
-          >
-            Donate GUYSSSSSSSSS
-          </div>
-
           <input
             type="checkbox"
             id="my-modal-donate"
@@ -152,24 +158,26 @@ function DetailDonate() {
               htmlFor=""
             >
               <h1 className="font-bold text-2xl mb-2 text-gray-800">Nominal</h1>
-                {/* <input
+              <form onSubmit={(e) => handleDonate.mutate(e)}>
+                <input
+                  onChange={handleOnChange}
                   name="total"
-                  value=""
+                  value={form.total}
                   style={{ backgroundColor: "#D2D2D240" }}
                   type="number"
                   placeholder="Nominal Donation"
                   className="text-gray-600 input input-bordered w-full max-w-xs mb-3"
-                /> */}
+                />
 
                 {/* {message && message} */}
 
-                {/* <div
-                  onClick={() => handleDonate.mutate({ total:100000 })}
+                <button
                   type="submit"
-                  className="btn bg-red-700 w-full text-white font-semibold p-2 rounded-md text-center border-none hover:bg-red-900 hover:text-white mr-4"
+                  className="mt-7 btn bg-red-700 w-full text-white font-semibold p-2 rounded-md text-center border-none hover:bg-red-900 hover:text-white mr-4"
                 >
-                  Donate
-                </div> */}
+                  Donate GUYSSSSSSSSS
+                </button>
+              </form>
             </label>
           </label>
         </div>

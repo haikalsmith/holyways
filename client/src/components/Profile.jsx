@@ -43,16 +43,23 @@ function Profile() {
       <div className="w-[300px]">
         <h1 className="text-2xl font-bold text-black mb-5">History Donation</h1>
         <div className="bg-white p-3 rounded-md">
-          <h1 className="text-black font-semibold mb-3">{funder?.donation.title}</h1>
-          <p className="text-gray-500 mb-[2px]">{funder?.donate_at}</p>
-          <div className="flex justify-between items-center">
-            <p className="text-red-700">Total : Rp {funder?.total.toLocaleString('id-ID').replace(/,/g, '.')}</p>
-            {funder?.status == "success" ? (
-              <p className="text-green-400 bg-green-200 p-2 rounded-md">Finished</p>
-            ): (
-                <p className="text-red-400 bg-red-200 p-2 rounded-md">Pending</p>
-            )}
-          </div>
+
+          {funder?.map((item) => (
+            <>
+              <h1 className="text-black font-semibold mb-3">{item?.donation.title}</h1>
+              <p className="text-gray-500 mb-[2px]">{item?.donate_at}</p>
+              <div className="flex justify-between items-center">
+                <p className="text-red-700">Total : Rp {item?.total.toLocaleString('id-ID').replace(/,/g, '.')}</p>
+                {item?.status == "success" ? (
+                  <p className="text-green-400 bg-green-200 p-2 rounded-md">Finished</p>
+                ): (
+                    <p className="text-red-400 bg-red-200 p-2 rounded-md">Pending</p>
+                )}
+              </div>
+             </>
+          ))}
+         
+
         </div>
       </div>
     </div>

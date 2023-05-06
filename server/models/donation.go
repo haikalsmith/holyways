@@ -18,7 +18,7 @@ type Donation struct {
 type DonationResponse struct {
 	ID          int                  `json:"id"`
 	Title       string               `json:"title"`
-	UserID      int                  `json:"-"`
+	UserID      int                  `json:"user_id"`
 	User        UsersProfileResponse `json:"user"`
 	Goal        int                  `json:"goal"`
 	Description string               `json:"description"`
@@ -30,7 +30,7 @@ type DonationUserResponse struct {
 	Title       string `json:"title"`
 	Description string `json:"description"`
 	CurrentGoal int    `json:"current_goal"`
-	UserID      int    `json:"-"`
+	UserID      int    `json:"user_id"`
 }
 
 func (DonationUserResponse) TableName() string {
