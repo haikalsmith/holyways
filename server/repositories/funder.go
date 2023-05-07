@@ -31,14 +31,14 @@ func (r *repository) FindFunder() ([]models.Funder, error) {
 
 func (r *repository) FindFunderByDonationID(donationId int) ([]models.Funder, error) {
 	var funders []models.Funder
-	err := r.db.Where("donation_id=?", donationId).Where("status=?", "success").Preload("Donation").Preload("User").Find(&funders).Error
+	err := r.db.Where("donation_id=?", donationId).Preload("Donation").Preload("User").Find(&funders).Error
 
 	return funders, err
 }
 
 func (r *repository) FindFunderByLogin(userId int) ([]models.Funder, error) {
 	var funders []models.Funder
-	err := r.db.Where("user_id", userId).Preload("Donation").Preload("User").Find(&funders).Error
+	err := r.db.Where("user_id=?", userId).Preload("Donation").Preload("User").Find(&funders).Error
 
 	return funders, err
 }

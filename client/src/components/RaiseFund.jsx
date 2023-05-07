@@ -60,8 +60,8 @@ function RaiseFund() {
                     </p>
                     <progress
                       className="progress progress-error w-full"
-                      value="40"
-                      max="100"
+                      value={item?.current_goal}
+                      max={item?.goal}
                     ></progress>
                     <div className="flex justify-between items-center mt-4">
                       <p className="text-black font-semibold">Rp {item?.goal.toLocaleString('id-ID').replace(/,/g, '.')}</p>

@@ -7,7 +7,7 @@ import (
 )
 
 type DonationRepository interface {
-	FindDonation() ([]models.Donation, error)
+	FindDonation() ([]models.DonationResponse, error)
 	GetDonation(ID int) (models.Donation, error)
 	CreateDonation(donation models.Donation) (models.Donation, error)
 	GetDonationByUserID(userId int) ([]models.Donation, error)
@@ -19,8 +19,8 @@ func RepositoryDonation(db *gorm.DB) *repository {
 	return &repository{db}
 }
 
-func (r *repository) FindDonation() ([]models.Donation, error) {
-	var donations []models.Donation
+func (r *repository) FindDonation() ([]models.DonationResponse, error) {
+	var donations []models.DonationResponse
 	err := r.db.Preload("User").Find(&donations).Error
 
 	return donations, err

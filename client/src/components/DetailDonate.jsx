@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 // import { UserContext } from "../context/UserContext";
 
 function DetailDonate() {
+  const { id } = useParams();
+  let navigate = useNavigate();
+
   const [form, setForm] = useState({
     total: "",
     donation_id: "",
@@ -18,8 +21,13 @@ function DetailDonate() {
     })
   }
 
-  const { id } = useParams();
-  let navigate = useNavigate();
+  let { data: funderbydonation } = useQuery("funderBydonation", async () => {
+    const response = await API.get(`/funder-by-donation/${id}`)
+    return response.data.data
+  })
+
+  console.table(funderbydonation)
+
 
   let { data: detailFund } = useQuery("detailFundCache", async () => {
     const response = await API.get(`/donation/${id}`);
@@ -175,7 +183,7 @@ function DetailDonate() {
                   type="submit"
                   className="mt-7 btn bg-red-700 w-full text-white font-semibold p-2 rounded-md text-center border-none hover:bg-red-900 hover:text-white mr-4"
                 >
-                  Donate GUYSSSSSSSSS
+                  Donate
                 </button>
               </form>
             </label>
@@ -187,7 +195,16 @@ function DetailDonate() {
           List Donation (200)
         </h1>
         <div>
-          <div className="bg-white p-2 mb-3 rounded-md">
+          {funderbydonation?.map((item) => (
+            <div key={item?.id} className="bg-white p-2 mb-3 rounded-md">
+              <h1 className="text-black font-semibold">{item?.user.fullName}</h1>
+              <h1 className="text-black font-semibold">
+                {item?.donate_at}
+              </h1>
+              <h1 className="text-red-800 font-semibold">Total : Rp {item?.total}</h1>
+            </div>
+          ))}
+          {/* <div className="bg-white p-2 mb-3 rounded-md">
             <h1 className="text-black font-semibold">Andi</h1>
             <h1 className="text-black font-semibold">
               Saturday, 12 April 2021
@@ -200,14 +217,7 @@ function DetailDonate() {
               Saturday, 12 April 2021
             </h1>
             <h1 className="text-red-800 font-semibold">Total : Rp 45.000</h1>
-          </div>
-          <div className="bg-white p-2 mb-3 rounded-md">
-            <h1 className="text-black font-semibold">Andi</h1>
-            <h1 className="text-black font-semibold">
-              Saturday, 12 April 2021
-            </h1>
-            <h1 className="text-red-800 font-semibold">Total : Rp 45.000</h1>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

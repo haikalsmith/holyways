@@ -11,6 +11,15 @@ type Funder struct {
 	User       UsersProfileResponse `json:"user"`
 }
 
+type FundersDonationResponse struct {
+	ID        int    `json:"id"`
+	FullName  string `json:"fullName"`
+	Email     string `json:"email"`
+	Total     int    `json:"donateAmount"`
+	Status    string `json:"status"`
+	CreatedAt string `json:"donate_at"`
+}
+
 type FunderUser struct {
 	ID        int                 `json:"id"`
 	CreatedAt string              `json:"donate_at"`
@@ -20,5 +29,9 @@ type FunderUser struct {
 }
 
 func (FunderUser) TableName() string {
+	return "funders"
+}
+
+func (FundersDonationResponse) TableName() string {
 	return "funders"
 }

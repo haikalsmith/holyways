@@ -65,7 +65,7 @@ function Home() {
         <div className="w-[1200px] mx-auto">
           <div className="flex gap-4 flex-wrap">
 
-            {donations?.slice(0,3).map((item) => (
+            {donations?.slice(0,6).map((item) => (
               <div key={item?.id} className="card w-96 bg-white shadow-xl rounded-md overflow-hidden">
                 <div className="bg-white h-[250px] overflow-hidden object-cover">
                   {item?.thumbnail == "" ? (
@@ -92,7 +92,9 @@ function Home() {
                   <progress className="progress progress-error w-full" value={item?.current_goal} max={item?.goal}></progress>
                   <div className="flex items-center mt-3">
                     <p className="text-black font-semibold">Rp {item?.goal.toLocaleString('id-ID').replace(/,/g, '.')}</p>
-                    <button className="bg-red-700 text-white font-semibold rounded-md py-2 px-4">Donate</button>
+                    <Link to={`/detail-donate/${item?.id}`}>
+                      <button className="bg-red-700 text-white font-semibold rounded-md py-2 px-4">Donate</button>
+                    </Link>
                   </div>
                 </div>
               </div>
