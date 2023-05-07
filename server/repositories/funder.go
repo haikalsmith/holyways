@@ -10,7 +10,7 @@ type FunderRepository interface {
 	FindFunder() ([]models.Funder, error)
 	FindFunderByLogin(userId int) ([]models.Funder, error)
 	FindFunderByStatusSucces(userId int) ([]models.Funder, error)
-	FindFunderByDonationID(donationId int) ([]models.Funder, error)
+	FindFunderByDonationIDAndStatusSucces(donationId int) ([]models.Funder, error)
 	GetFunder(ID int) (models.Funder, error)
 	GetFunderID(funderId int) (models.Funder, error)
 	GetFunderByDonation(ID int) ([]models.Funder, error)
@@ -29,13 +29,6 @@ func (r *repository) FindFunder() ([]models.Funder, error) {
 	return funders, err
 }
 
-func (r *repository) FindFunderByDonationID(donationId int) ([]models.Funder, error) {
-	var funders []models.Funder
-	err := r.db.Where("donation_id=?", donationId).Preload("Donation").Preload("User").Find(&funders).Error
-
-	return funders, err
-}
-
 func (r *repository) FindFunderByLogin(userId int) ([]models.Funder, error) {
 	var funders []models.Funder
 	err := r.db.Where("user_id=?", userId).Preload("Donation").Preload("User").Find(&funders).Error
@@ -43,10 +36,17 @@ func (r *repository) FindFunderByLogin(userId int) ([]models.Funder, error) {
 	return funders, err
 }
 
+func (r *repository) FindFunderByDonationIDAndStatusSucces(donationId int) ([]models.Funder, error) {
+	var funders []models.Funder
+	err := r.db.Where("donation_id=?", donationId).Where("status=?", "success").Preload("Donation").Preload("User").Find(&funders).Error
+
+	return funders, err
+}
+
 
 func (r *repository) FindFunderByStatusSucces(userId int) ([]models.Funder, error) {
 	var funders []models.Funder
-	err := r.db.Where("user_id", userId).Where("status=?", "success").Preload("Donation").Preload("User").Find(&funders).Error
+	err := r.db.Where("user_id=?", userId).Where("status=?", "success").Preload("Donation").Preload("User").Find(&funders).Error
 
 	return funders, err
 }

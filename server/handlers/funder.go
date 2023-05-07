@@ -37,7 +37,7 @@ func (h *handlerFunder) FindFunder(c echo.Context) error {
 	return c.JSON(http.StatusOK, dto.SuccessResult{Status: http.StatusOK, Data: funders})
 }
 
-func (h * handlerFunder) FindFunderByLogin(c echo.Context) error {
+func (h *handlerFunder) FindFunderByLogin(c echo.Context) error {
 	userLogin := c.Get("userLogin")
 	userId := userLogin.(jwt.MapClaims)["id"].(float64)
 
@@ -49,9 +49,9 @@ func (h * handlerFunder) FindFunderByLogin(c echo.Context) error {
 	return c.JSON(http.StatusOK, dto.SuccessResult{Status: http.StatusOK, Data: funders})
 }
 
-func (h *handlerFunder) FindFunderByDonationID(c echo.Context) error {
-	id,_ := strconv.Atoi(c.Param("id"))
-	funder, err := h.FunderRepository.FindFunderByDonationID(id)
+func (h *handlerFunder) FindFunderByDonationIDAndStatusSucces(c echo.Context) error {
+	id, _ := strconv.Atoi(c.Param("id"))
+	funder, err := h.FunderRepository.FindFunderByDonationIDAndStatusSucces(id)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
 	}

@@ -21,8 +21,8 @@ function DetailDonate() {
     })
   }
 
-  let { data: funderbydonation } = useQuery("funderBydonation", async () => {
-    const response = await API.get(`/funder-by-donation/${id}`)
+  let { data: funderbydonation } = useQuery("funderBydonationAndStatusSuccess", async () => {
+    const response = await API.get(`/funder-by-donation-and-status-succes/${id}`)
     return response.data.data
   })
 
@@ -130,7 +130,7 @@ function DetailDonate() {
           ></progress>
           <div className="flex justify-between mb-5">
             <div className="flex gap-1 items-center">
-              <p className="font-semibold text-black">200</p>
+              <p className="font-semibold text-black">{funderbydonation?.length}</p>
               <p className="" style={{ color: "#616161" }}>
                 Donation
               </p>
@@ -192,7 +192,7 @@ function DetailDonate() {
       </div>
       <div className="w-[800px] mx-auto pb-20">
         <h1 className="text-black font-bold text-2xl mb-3">
-          List Donation (200)
+          List Donation ({funderbydonation?.length})
         </h1>
         <div>
           {funderbydonation?.map((item) => (
