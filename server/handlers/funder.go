@@ -49,6 +49,16 @@ func (h *handlerFunder) FindFunderByLogin(c echo.Context) error {
 	return c.JSON(http.StatusOK, dto.SuccessResult{Status: http.StatusOK, Data: funders})
 }
 
+func (h *handlerFunder) FindFunderByDonationIDAndStatusPending(c echo.Context) error {
+	id, _ := strconv.Atoi(c.Param("id"))
+	funder, err := h.FunderRepository.FindFunderByDonationIDAndStatusPending(id)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Status: http.StatusBadRequest, Message: err.Error()})
+	}
+
+	return c.JSON(http.StatusOK, dto.SuccessResult{Status: http.StatusOK, Data: funder})
+}
+
 func (h *handlerFunder) FindFunderByDonationIDAndStatusSucces(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	funder, err := h.FunderRepository.FindFunderByDonationIDAndStatusSucces(id)
