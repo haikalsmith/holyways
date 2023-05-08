@@ -1,21 +1,29 @@
 import { useQuery } from "react-query";
 import { API, setAuthToken } from "../config/Api";
+import { useState } from "react";
 
 function Profile() {
+  const [data, setData] = useState([]);
+  const [visible, setVisible] = useState(3);
 
   let { data: profile } = useQuery("profileCache", async () => {
     const response = await API.get("/user-by-login", setAuthToken(localStorage.token));
     return response.data.data;
   });
 
-  const { data: funder } = useQuery("funderByLoginCache", async () => {
+  useQuery("funderByLoginCache", async () => {
     const response = await API.get("/funder-by-login", setAuthToken(localStorage.token));
+    setData(response.data.data)
     return response.data.data;
   });
+
+  const loadMore = () => {
+    setVisible((prev) => prev + 3);
+  };
   
 
   return (
-    <div className="w-full h-screen" style={{ backgroundColor: "#E5E5E5" }}>
+    <div className="w-full pb-20" style={{ backgroundColor: "#E5E5E5" }}>
       <div className="flex justify-center pt-10">
         <div className="w-[500px]">
           <h1 className="text-2xl font-bold text-black mb-5">My Profile</h1>
@@ -50,7 +58,7 @@ function Profile() {
             History Donation
           </h1>
 
-          {funder?.slice(0, 3).map((item) => (
+          {data?.slice(0, visible).map((item) => (
             <div key={item?.id} className="bg-white p-3 rounded-md mb-2">
               <h1 className="text-black font-semibold mb-3">
                 {item?.donation.title}
@@ -75,14 +83,26 @@ function Profile() {
           ))}
 
           <div className="flex justify-center">
-            {funder?.length >= 3 && (
+            {/* {funder?.length >= 3 && (
               <button
+                onClick={loadMore}
+                type="btn"
+                className="mt-7 btn btn-xs px-5 bg-red-700 w-1/2 text-white font-semibold rounded-md text-center border-none hover:bg-red-900 hover:text-white mr-4"
+              >
+                Load More
+              </button>
+            )} */}
+
+            {visible < data.length && (
+              <button
+                onClick={loadMore}
                 type="btn"
                 className="mt-7 btn btn-xs px-5 bg-red-700 w-1/2 text-white font-semibold rounded-md text-center border-none hover:bg-red-900 hover:text-white mr-4"
               >
                 Load More
               </button>
             )}
+
           </div>
         </div>
       </div>

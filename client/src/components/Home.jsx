@@ -4,12 +4,21 @@ import noImage from "../assets/images/no-image.webp"
 import { Link } from "react-router-dom"
 import { API } from "../config/Api"
 import { useQuery } from "react-query"
+import { useState } from "react"
 
 function Home() {
-  let { data: donations } = useQuery('donationsHomeChache', async () => {
+  const [data, setData] = useState([]);
+  const [visible, setVisible] = useState(3);
+
+  useQuery('donationsHomeChache', async () => {
     const response = await API.get(`/donations`)
+    setData(response.data.data)
     return response.data.data
   }) 
+
+  const loadMore = () => {
+    setVisible((prev) => prev + 3);
+  };
 
   return (
     <div className="bg-red-700">
@@ -65,7 +74,7 @@ function Home() {
         <div className="w-[1200px] mx-auto">
           <div className="flex gap-4 flex-wrap">
 
-            {donations?.slice(0,6).map((item) => (
+            {data?.slice(0, visible).map((item) => (
               <div key={item?.id} className="card w-96 bg-white shadow-xl rounded-md overflow-hidden">
                 <div className="bg-white h-[250px] overflow-hidden object-cover">
                   {item?.thumbnail == "" ? (
@@ -99,10 +108,12 @@ function Home() {
                 </div>
               </div>
             ))}
-
-            <div className="w-full flex justify-center">
-              <button className="bg-red-700 p-3 text-white font-semibold rounded-md">Load more</button>
-            </div>
+            
+            {visible < data.length && (
+              <div className="w-full flex justify-center">
+                <button onClick={loadMore} className="bg-red-700 p-3 text-white font-semibold rounded-md">Load more</button>
+              </div>
+            )}
 
           </div>
         </div>
