@@ -202,7 +202,7 @@ func SendMail(status string, funder models.Funder) {
 		invoice_date := funder.CreatedAt
 		payment_method := "VISA"
 		currency := "IDR"
-		// thumbnail := funder.Donation.Thumbnail
+		thumbnail := funder.Donation.Thumbnail
 		// price := strconv.Itoa(funder.Total)
 
 		mailer := gomail.NewMessage()
@@ -212,97 +212,109 @@ func SendMail(status string, funder models.Funder) {
 		mailer.SetBody("text/html", fmt.Sprintf(`
 		<!DOCTYPE html>
 		<html lang="en">
-			<head>
-				<meta charset="UTF-8">
-				<meta http-equiv="X-UA-Compatible" content="IE=edge">
-				<meta name="viewport" content="width=device-width, initial-scale=1.0">
-				<title>Succes</title>
-				<style>
-					body {
-						font-family: Arial, Helvetica, sans-serif;
-					}
-					.container {
-						background-color: rgb(234, 232, 232);
-						width: 400px; 
-						border-radius: 20px;
-						overflow: hidden;
-					}
-					h1 {
-						text-align: center;
-					}
-					img {
-						width: 150px;
-						margin: 0 auto;
-
-					}
-					.zz {
-						display: flex;
-						flex-direction: column;
-						justify-content: center;
-					}
-					.zzz {
-						display: flex;
-						justify-content: space-between;
-						border-bottom: 1px solid rgb(199, 194, 194);
-						padding: 5px
-					}
-					h4.title {
-						width: 200px;
-						font-weight: normal;
-						margin: 0;
-					}
-					h4.isi {
-						width: 200px;
-						font-weight: normal;
-						margin: 0;
-					}
-				</style>
-			</head>
-			<body>
-				<div class="container">
-					<div class="zz">
-						<h1>Holyways</h1>
-						<img src="https://dmbala.stripocdn.email/content/guids/CABINET_c0e87147643dfd412738cb6184109942/images/151618429860259.png" alt="" />
-						<h1>Terimakasih Donasinya Orang Baik!</h1>
+		<head>
+			<meta charset="UTF-8">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<title>Succes</title>
+			<style>
+				body {
+					font-family: Arial, Helvetica, sans-serif;
+				}
+				.container {
+					background-color: rgb(234, 232, 232);
+					width: 400px; 
+					border-radius: 20px;
+					overflow: hidden;
+				}
+				h1 {
+					text-align: center;
+				}
+				.header-title {
+					border-radius: 10px;
+					padding: 5px;
+					background-color: rgb(209, 209, 209);
+					display: flex;
+					gap: 5px;
+				}
+				.header-img {
+					width: 150px;
+					margin: 0 auto;
+				}
+				.body-img {
+					width: 150px;
+					margin: 0 auto;
+				}
+				.zz {
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+				}
+				.zzz {
+					display: flex;
+					justify-content: space-between;
+					border-bottom: 1px solid rgb(199, 194, 194);
+					padding: 5px
+				}
+				h4.title {
+					width: 200px;
+					font-weight: normal;
+					margin: 0;
+				}
+				h4.isi {
+					width: 200px;
+					font-weight: normal;
+					margin: 0;
+				}
+			</style>
+		</head>
+		<body>
+			<div class="container">
+				<div class="zz">
+					<!-- <h1>Holyways</h1>
+					<img class="header-img" src="https://dmbala.stripocdn.email/content/guids/CABINET_c0e87147643dfd412738cb6184109942/images/151618429860259.png" alt="" /> -->
+					<h1>Terimakasih Donasinya Orang Baik!</h1>
+				</div>
+				<div style="padding: 15px;">
+					<div class="header-title" style="margin-bottom:15px;">
+						<img style="border-radius: 10px;" class="body-img" src="%s" alt="" />
+						<div>
+							<h4 style="font-weight: 300;">%s</h4>
+						</div>
 					</div>
-					<div style="padding: 15px">
-						<div class="zzz">
-							<h4 class="title">Title</h4>
-							<h4 class="isi">: %s</h4>
-						</div>
-						<div class="zzz">
-							<h4 class="title">Total</h4>
-							<h4 class="isi">: %s</h4>
-						</div>
-						<div class="zzz">
-							<h4 class="title">Customer</h4>
-							<h4 class="isi">: %s</h4>
-						</div>
-						<div class="zzz">
-							<h4 class="title">Order Number</h4>
-							<h4 class="isi">: #%d</h4>
-						</div>
-						<div class="zzz">
-							<h4 class="title">Invoice Date</h4>
-							<h4 class="isi">: %s</h4>
-						</div>
-						<div class="zzz">
-							<h4 class="title">Payment Method</h4>
-							<h4 class="isi">: %s</h4>
-						</div>
-						<div class="zzz">
-							<h4 class="title">Currency</h4>
-							<h4 class="isi">: %s</h4>
-						</div>
-						<div class="zzz">
-							<h4 class="title">Status</h4>
-							<h4 class="isi success">: success</h4>
-						</div>
+					<div class="zzz">
+						<h4 class="title">Total</h4>
+						<h4 class="isi">: %s</h4>
+					</div>
+					<div class="zzz">
+						<h4 class="title">Customer</h4>
+						<h4 class="isi">: %s</h4>
+					</div>
+					<div class="zzz">
+						<h4 class="title">Order Number</h4>
+						<h4 class="isi">: #%d</h4>
+					</div>
+					<div class="zzz">
+						<h4 class="title">Invoice Date</h4>
+						<h4 class="isi">: %s</h4>
+					</div>
+					<div class="zzz">
+						<h4 class="title">Payment Method</h4>
+						<h4 class="isi">: %s</h4>
+					</div>
+					<div class="zzz">
+						<h4 class="title">Currency</h4>
+						<h4 class="isi">: %s</h4>
+					</div>
+					<div class="zzz">
+						<h4 class="title">Status</h4>
+						<h4 class="isi success">: SUCCESS</h4>
 					</div>
 				</div>
-			</body>
+			</div>
+		</body>
 		</html>
-		`, title, total, customer, order_number, invoice_date, payment_method, currency))
+		`, thumbnail, title, total, customer, order_number, invoice_date, payment_method, currency))
 
 		dialer := gomail.NewDialer(
 			CONFIG_SMTP_HOST,
