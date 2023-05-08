@@ -20,7 +20,6 @@ function Profile() {
   const loadMore = () => {
     setVisible((prev) => prev + 3);
   };
-  
 
   return (
     <div className="w-full pb-20" style={{ backgroundColor: "#E5E5E5" }}>
@@ -83,15 +82,6 @@ function Profile() {
           ))}
 
           <div className="flex justify-center">
-            {/* {funder?.length >= 3 && (
-              <button
-                onClick={loadMore}
-                type="btn"
-                className="mt-7 btn btn-xs px-5 bg-red-700 w-1/2 text-white font-semibold rounded-md text-center border-none hover:bg-red-900 hover:text-white mr-4"
-              >
-                Load More
-              </button>
-            )} */}
 
             {visible < data.length && (
               <button

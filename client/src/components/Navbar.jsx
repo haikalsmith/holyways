@@ -5,8 +5,8 @@ import ProfileLogo from "../assets/icons/profile.png"
 import RaiseFundLogo from "../assets/icons/raise-fund.png"
 import LogoutLogo from "../assets/icons/logout.png"
 
-import Login from "./Login";
-import Register from "./Register";
+import Login from "../auth/Login";
+import Register from "../auth/Register";
 import brandLogo from "../assets/logo.png";
 import { UserContext } from "../context/UserContext";
 

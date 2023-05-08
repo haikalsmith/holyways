@@ -3,7 +3,7 @@ import { useMutation } from "react-query";
 import { API, setAuthToken } from "../config/Api";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import { alertLoginSucces, alertLoginFailed } from "./alert/Alert";
+import { alertLoginSucces, alertLoginFailed } from "../components/alert/Alert";
 
 function Login() {
   const [, dispatch] = useContext(UserContext);

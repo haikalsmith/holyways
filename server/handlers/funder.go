@@ -167,7 +167,11 @@ func (h *handlerFunder) Notification(c echo.Context) error {
 			SendMail("success", transaction)
 			h.FunderRepository.UpdateFunder("pending", order_id)
 		} else if fraudStatus == "accept" {
-			h.FunderRepository.UpdateFunder("success", order_id)
+			SendMail("success", transaction)
+			_, err := h.FunderRepository.UpdateFunder("success", order_id)
+			if err != nil {
+				fmt.Println(err)
+			}
 		}
 	} else if transactionStatus == "settlement" {
 		SendMail("success", transaction)

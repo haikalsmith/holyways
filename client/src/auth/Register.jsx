@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { API } from "../config/Api";
-import { alertRegisterSucces, alertRegisterFailed } from "./alert/Alert";
+import { alertRegisterSucces, alertRegisterFailed } from "../components/alert/Alert";
 
 function Register() {
   // message when login is success or failed

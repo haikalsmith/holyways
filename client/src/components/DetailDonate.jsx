@@ -8,22 +8,35 @@ function DetailDonate() {
   const { id } = useParams();
   let navigate = useNavigate();
 
+  const [data, setData] = useState([]);
+  const [visible, setVisible] = useState(3);
+
+  const loadMore = () => {
+    setVisible((prev) => prev + 3);
+  };
+
   const [form, setForm] = useState({
     total: "",
     donation_id: "",
-  })
+  });
 
   const handleOnChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
-    })
-  }
+    });
+  };
 
-  let { data: funderbydonation } = useQuery("funderBydonationAndStatusSuccess", async () => {
-    const response = await API.get(`/funder-by-donation-and-status-succes/${id}`)
-    return response.data.data
-  })
+  let { data: funderbydonation } = useQuery(
+    "funderBydonationAndStatusSuccess",
+    async () => {
+      const response = await API.get(
+        `/funder-by-donation-and-status-succes/${id}`
+      );
+      setData(response.data.data);
+      return response.data.data;
+    }
+  );
 
   let { data: detailFund } = useQuery("detailFundCache", async () => {
     const response = await API.get(`/donation/${id}`);
@@ -34,7 +47,8 @@ function DetailDonate() {
     //change this to the script source you want to load, for example this is snap.js sandbox env
     const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
     //change this according to your client-key
-    const myMidtransClientKey = import.meta.env.VITE_REACT_APP_MIDTRANS_CLIENT_KEY;
+    const myMidtransClientKey = import.meta.env
+      .VITE_REACT_APP_MIDTRANS_CLIENT_KEY;
 
     let scriptTag = document.createElement("script");
     scriptTag.src = midtransScriptUrl;
@@ -49,13 +63,12 @@ function DetailDonate() {
   }, []);
 
   const handleDonate = useMutation(async (e) => {
-    
     try {
-      e.preventDefault()
+      e.preventDefault();
 
       const config = {
         headers: {
-          'Content-type': 'application/json',
+          "Content-type": "application/json",
         },
       };
 
@@ -67,8 +80,8 @@ function DetailDonate() {
       const body = JSON.stringify(data);
       console.log(body);
 
-      const response = await API.post('/funder', body, config);
-      console.log("donation success :", response)
+      const response = await API.post("/funder", body, config);
+      console.log("donation success :", response);
 
       const token = response.data.data.token;
 
@@ -113,7 +126,12 @@ function DetailDonate() {
             {detailFund?.title}
           </h1>
           <div className="flex justify-between mb-2">
-            <p className="text-red-700 font-semibold">Rp {detailFund?.current_goal.toLocaleString("id-ID").replace(/,/g, ".")}</p>
+            <p className="text-red-700 font-semibold">
+              Rp{" "}
+              {detailFund?.current_goal
+                .toLocaleString("id-ID")
+                .replace(/,/g, ".")}
+            </p>
             <p className="text-gray-500">gathered from</p>
             <p className="font-semibold" style={{ color: "#616161" }}>
               Rp {detailFund?.goal.toLocaleString("id-ID").replace(/,/g, ".")}
@@ -126,7 +144,9 @@ function DetailDonate() {
           ></progress>
           <div className="flex justify-between mb-5">
             <div className="flex gap-1 items-center">
-              <p className="font-semibold text-black">{funderbydonation?.length}</p>
+              <p className="font-semibold text-black">
+                {funderbydonation?.length}
+              </p>
               <p className="" style={{ color: "#616161" }}>
                 Donation
               </p>
@@ -184,7 +204,6 @@ function DetailDonate() {
               </form>
             </label>
           </label>
-
         </div>
       </div>
       <div className="w-[800px] mx-auto pb-20">
@@ -192,15 +211,30 @@ function DetailDonate() {
           List Donation ({funderbydonation?.length})
         </h1>
         <div>
-          {funderbydonation?.map((item) => (
+          {data?.slice(0, visible).map((item) => (
             <div key={item?.id} className="bg-white p-2 mb-3 rounded-md">
-              <h1 className="text-black font-semibold">{item?.user.fullName}</h1>
-              <h1 className="text-gray-600">
-                {item?.donate_at}
+              <h1 className="text-black font-semibold">
+                {item?.user.fullName}
               </h1>
-              <h1 className="text-red-800 font-semibold">Total : Rp {item?.total.toLocaleString('id-ID').replace(/,/g, '.')}</h1>
+              <h1 className="text-gray-600">{item?.donate_at}</h1>
+              <h1 className="text-red-800 font-semibold">
+                Total : Rp{" "}
+                {item?.total.toLocaleString("id-ID").replace(/,/g, ".")}
+              </h1>
             </div>
           ))}
+        </div>
+
+        <div className="flex justify-center">
+          {visible < data.length && (
+            <button
+              onClick={loadMore}
+              type="btn"
+              className="mt-7 btn btn-xs px-5 bg-red-700 text-white font-semibold rounded-md text-center border-none hover:bg-red-900 hover:text-white mr-4"
+            >
+              Load More
+            </button>
+          )}
         </div>
       </div>
     </div>

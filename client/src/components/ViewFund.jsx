@@ -7,6 +7,19 @@ function ViewFund() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const [dataSuccess, setDataSuccess] = useState([]);
+  const [dataPending, setDataPending] = useState([]);
+  const [visible, setVisible] = useState(3);
+  const [visiblePending, setVisiblePending] = useState(3);
+
+  const loadMore = () => {
+    setVisible((prev) => prev + 3);
+  };
+
+  const loadMorePending = () => {
+    setVisiblePending((prev) => prev + 3);
+  };
+
   const [form, setForm] = useState({
     total: "",
     donation_id: "",
@@ -19,12 +32,13 @@ function ViewFund() {
     });
   };
 
-  let { data: funderbydonation2 } = useQuery(
+  let { data: funderByDonationSucces } = useQuery(
     "funderBydonationAndStatusSuccess2",
     async () => {
       const response = await API.get(
         `/funder-by-donation-and-status-succes/${id}`
       );
+      setDataSuccess(response.data.data);
       return response.data.data;
     }
   );
@@ -34,10 +48,16 @@ function ViewFund() {
     return response.data.data;
   });
 
-  let { data: funderbydonationPending } = useQuery("funderBydonationAndStatusPending", async () => {
-    const response = await API.get(`/funder-by-donation-and-status-pending/${id}`)
-    return response.data.data
-  })
+  let { data: funderByDonationPending } = useQuery(
+    "funderBydonationAndStatusPending",
+    async () => {
+      const response = await API.get(
+        `/funder-by-donation-and-status-pending/${id}`
+      );
+      setDataPending(response.data.data);
+      return response.data.data;
+    }
+  );
 
   const handleDonate = useMutation(async (e) => {
     try {
@@ -122,7 +142,12 @@ function ViewFund() {
             {donationDetail?.title}
           </h1>
           <div className="flex justify-between mb-2">
-            <p className="text-red-700 font-semibold">Rp 25.000.000</p>
+            <p className="text-red-700 font-semibold">
+              Rp{" "}
+              {donationDetail?.current_goal
+                .toLocaleString("id-ID")
+                .replace(/,/g, ".")}
+            </p>
             <p className="text-gray-500">gathered from</p>
             <p className="font-semibold" style={{ color: "#616161" }}>
               Rp{" "}
@@ -131,13 +156,13 @@ function ViewFund() {
           </div>
           <progress
             className="progress progress-error w-full"
-            value="40"
-            max="100"
+            value={donationDetail?.current_goal}
+            max={donationDetail?.goal}
           ></progress>
           <div className="flex justify-between mb-5">
             <div className="flex gap-1 items-center">
               <p className="font-semibold text-black">
-                {funderbydonation2?.length}
+                {funderByDonationSucces?.length}
               </p>
               <p className="" style={{ color: "#616161" }}>
                 Donation
@@ -200,11 +225,11 @@ function ViewFund() {
       </div>
       <div className="w-[800px] mx-auto mb-10">
         <h1 className="text-black font-bold text-2xl mb-3">
-          List Donation ({funderbydonation2?.length})
+          List Donation ({funderByDonationSucces?.length})
         </h1>
         <div>
-          {funderbydonation2?.map((item) => (
-            <div key={item?.id} className="bg-white p-2 mb-3 rounded-md">
+          {dataSuccess?.slice(0, visible).map((item) => (
+            <div key={item?.id} className="bg-white p-2 mb-3 rounded-md hover:">
               <h1 className="text-black font-semibold">
                 {item?.user.fullName}
               </h1>
@@ -216,22 +241,39 @@ function ViewFund() {
             </div>
           ))}
         </div>
+        <div className="flex justify-center">
+          {visible < dataSuccess.length && (
+            <button
+              onClick={loadMore}
+              type="btn"
+              className="mt-7 btn btn-xs px-5 bg-red-700 text-white font-semibold rounded-md text-center border-none hover:bg-red-900 hover:text-white mr-4"
+            >
+              Load More
+            </button>
+          )}
+        </div>
       </div>
       <div className="w-[800px] mx-auto pb-10">
-        {funderbydonationPending && (
+        {funderByDonationPending && (
           <>
             <h1 className="text-black font-bold text-2xl mb-3">
-            Donation has not been approved ({funderbydonationPending?.length})
+              Donation has not been approved ({funderByDonationPending?.length})
             </h1>
             <div>
-              {funderbydonationPending?.map((item) => (
-                <div key={item?.id} className="bg-white p-2 mb-3 rounded-md flex items-center">
+              {dataPending?.slice(0, visiblePending).map((item) => (
+                <div
+                  key={item?.id}
+                  className="bg-white p-2 mb-3 rounded-md flex items-center"
+                >
                   <div className="w-[85%]">
-                    <h1 className="text-black font-semibold">{item?.user.fullName}</h1>
                     <h1 className="text-black font-semibold">
-                      {item?.donate_at}
+                      {item?.user.fullName}
                     </h1>
-                    <h1 className="text-red-800 font-semibold">Total : Rp {item?.total.toLocaleString('id-ID').replace(/,/g, '.')}</h1>
+                    <h1 className="text-gray-600">{item?.donate_at}</h1>
+                    <h1 className="text-red-800 font-semibold">
+                      Total : Rp{" "}
+                      {item?.total.toLocaleString("id-ID").replace(/,/g, ".")}
+                    </h1>
                   </div>
                   <div className="">
                     <h1 className="p-2 bg-red-700 rounded-md text-white font-semibold">
@@ -243,6 +285,17 @@ function ViewFund() {
             </div>
           </>
         )}
+        <div className="flex justify-center">
+          {visiblePending < dataPending.length && (
+            <button
+              onClick={loadMorePending}
+              type="btn"
+              className="mt-7 btn btn-xs px-5 bg-red-700 text-white font-semibold rounded-md text-center border-none hover:bg-red-900 hover:text-white mr-4"
+            >
+              Load More
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
