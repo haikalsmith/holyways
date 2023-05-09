@@ -7,13 +7,19 @@ function Profile() {
   const [visible, setVisible] = useState(3);
 
   let { data: profile } = useQuery("profileCache", async () => {
-    const response = await API.get("/user-by-login", setAuthToken(localStorage.token));
+    const response = await API.get(
+      "/user-by-login",
+      setAuthToken(localStorage.token)
+    );
     return response.data.data;
   });
 
   useQuery("funderByLoginCache", async () => {
-    const response = await API.get("/funder-by-login", setAuthToken(localStorage.token));
-    setData(response.data.data)
+    const response = await API.get(
+      "/funder-by-login",
+      setAuthToken(localStorage.token)
+    );
+    setData(response.data.data);
     return response.data.data;
   });
 
@@ -26,7 +32,7 @@ function Profile() {
       <div className="flex justify-center pt-10">
         <div className="w-[500px]">
           <h1 className="text-2xl font-bold text-black mb-5">My Profile</h1>
-          <div className="flex">
+          <div className="flex mb-5">
             <img
               className="w-[200px] mr-5 rounded-md"
               src="https://i.pinimg.com/originals/47/4f/5f/474f5fa00f60fb5c2e47c9dfcd7b1593.jpg"
@@ -51,6 +57,74 @@ function Profile() {
               </div>
             </div>
           </div>
+          {/* <label
+            htmlFor="my-modal-edit"
+            className="btn bg-red-700 w-[200px] text-white font-semibold p-2 rounded-md text-center border-none hover:bg-red-900 hover:text-white mr-4"
+          >
+            Edit
+          </label>
+
+          <input type="checkbox" id="my-modal-edit" className="modal-toggle" />
+          <label htmlFor="my-modal-edit" className="modal cursor-pointer">
+            <label
+              className="modal-box relative bg-white text-black max-w-xs"
+              htmlFor=""
+            >
+              <h1 className="font-bold text-2xl mb-2 text-gray-800">
+                Edit Profile
+              </h1>
+              <form>
+                <input
+                  name="fullName"
+                  style={{ backgroundColor: "#D2D2D240" }}
+                  type="text"
+                  placeholder="Full Name"
+                  className="text-gray-600 input input-bordered w-full max-w-xs mb-3"
+                />
+                <input
+                  name="email"
+                  style={{ backgroundColor: "#D2D2D240" }}
+                  type="email"
+                  placeholder="Email"
+                  className="text-gray-600 input input-bordered w-full max-w-xs mb-3"
+                />
+                <input
+                  name="password"
+                  style={{ backgroundColor: "#D2D2D240" }}
+                  type="password"
+                  placeholder="Password"
+                  className="text-gray-600 input input-bordered w-full max-w-xs mb-3"
+                />
+                <input
+                  type="file"
+                  style={{ backgroundColor: "#D2D2D240" }}
+                  className="file-input file-input-bordered w-full max-w-xs mb-3"
+                />
+                <input
+                  name="phone"
+                  style={{ backgroundColor: "#D2D2D240" }}
+                  type="number"
+                  placeholder="Phone"
+                  className="text-gray-600 input input-bordered w-full max-w-xs mb-3"
+                />
+                <textarea
+                  name="address"
+                  style={{ backgroundColor: "#D2D2D240" }}
+                  className="textarea textarea-bordered text-gray-600 w-full text-md"
+                  placeholder="Description"
+                ></textarea> */}
+
+                {/* {message && message} */}
+
+                {/* <button
+                  type="submit"
+                  className="mt-7 btn bg-red-700 w-full text-white font-semibold p-2 rounded-md text-center border-none hover:bg-red-900 hover:text-white mr-4"
+                >
+                  Save
+                </button>
+              </form>
+            </label>
+          </label> */}
         </div>
         <div className="w-[300px]">
           <h1 className="text-2xl font-bold text-black mb-5">
@@ -82,7 +156,6 @@ function Profile() {
           ))}
 
           <div className="flex justify-center">
-
             {visible < data.length && (
               <button
                 onClick={loadMore}
@@ -92,7 +165,6 @@ function Profile() {
                 Load More
               </button>
             )}
-
           </div>
         </div>
       </div>

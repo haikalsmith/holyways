@@ -63,13 +63,22 @@ function RaiseFund() {
                       value={item?.current_goal}
                       max={item?.goal}
                     ></progress>
+                        <p className="text-black font-semibold">Rp {item?.goal.toLocaleString('id-ID').replace(/,/g, '.')}</p>
                     <div className="flex justify-between items-center mt-4">
-                      <p className="text-black font-semibold">Rp {item?.goal.toLocaleString('id-ID').replace(/,/g, '.')}</p>
-                      <Link to={`/view-fund/${item?.id}`}>
-                        <p className="bg-red-700 text-white font-semibold p-2 rounded-md">
-                          View Fund
-                        </p>
-                      </Link>
+                      {/* <div>
+                        <Link to={`/view-fund/${item?.id}`}>
+                          <label className="bg-green-600 text-white font-semibold p-4 rounded-md btn btn-xs">
+                            Edit Fund
+                          </label>
+                        </Link>
+                      </div> */}
+                      <div>
+                        <Link to={`/view-fund/${item?.id}`}>
+                          <p className="bg-red-700 text-white font-semibold p-2 rounded-md">
+                            View Fund
+                          </p>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
