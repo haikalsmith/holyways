@@ -177,7 +177,7 @@ function ViewFund() {
           </div>
           <div></div>
           <div></div>
-          <p className="mb-4 line-clamp-3" style={{ color: "#616161" }}>
+          <p className="mb-4 text-justify md:text-start md:line-clamp-3" style={{ color: "#616161" }}>
             {donationDetail?.description}
           </p>
 
