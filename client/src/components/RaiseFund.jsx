@@ -16,15 +16,15 @@ function RaiseFund() {
 
   return (
     <div className="w-full h-[3000px]" style={{ backgroundColor: "#E5E5E5" }}>
-      <div className="w-[950px] mx-auto h-screen pt-10">
-        <div className="w-full">
+      <div className="w-full md:w-[950px] mx-auto h-screen pt-10">
+        <div className="w-full p-4 md:p-0 flex justify-end">
           <Link to={"/form-fund"}>
-            <h1 className="bg-red-700 text-white p-3 text-center rounded-md w-[150px] ml-[800px]">
+            <h1 className="bg-red-700 text-white p-3 text-center rounded-md w-[150px] md:w-[150px] md:ml-[800px]">
               Make Raise Fund
             </h1>
           </Link>
         </div>
-        <div className="w-[100%]">
+        <div className="w-full p-4 md:p-0">
           <h1 className="text-3xl font-semibold text-black mb-3">
             My Raise Fund
           </h1>
@@ -32,7 +32,7 @@ function RaiseFund() {
           <div className="gap-5 flex flex-wrap">
             {raisefund?.map((item) => (
               <div key={item?.id}>
-                <div className="rounded-md overflow-hidden w-[300px] bg-white">
+                <div className="rounded-md overflow-hidden md:w-[300px] bg-white">
                   <div className="h-[200px] overflow-hidden object-cover">
                     {item?.thumbnail == "" ? (
                       <img
