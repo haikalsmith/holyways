@@ -94,7 +94,7 @@ function FormFund() {
           />
           
           {preview && (
-            <img className="w-[200px] mb-3" src={preview} alt="" />
+            <img className="w-1/2 rounded-md md:w-[200px] mb-3" src={preview} alt="" />
           )}
 
           <input
@@ -107,7 +107,7 @@ function FormFund() {
             className="p-2 mb-3 rounded-[3px] border-white border-[1px] text-white"
           />
           <div onClick={handleClickAttach} className="mb-3 cursor-pointer">
-            <h1 className="bg-red-700 p-2 rounded-md text-white font-semibold w-[200px] text-center">
+            <h1 className="bg-red-700 p-2 rounded-md text-white font-semibold w-1/2 md:w-[200px] text-center">
               Attache Thumbnail
             </h1>
           </div>
