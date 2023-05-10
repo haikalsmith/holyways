@@ -29,16 +29,16 @@ function Profile() {
 
   return (
     <div className="w-full pb-20" style={{ backgroundColor: "#E5E5E5" }}>
-      <div className="flex flex-col p-4 md:flex md:justify-center">
+      <div className="flex flex-col p-4 md:flex md:flex-row md:justify-center">
         <div className="w-full md:w-[500px]">
           <h1 className="text-2xl font-bold text-black mb-5">My Profile</h1>
           <div className="flex mb-5">
             <img
-              className="w-[200px] mr-5 rounded-md"
+              className="w-[50%] md:w-[200px] mr-5 rounded-md"
               src="https://i.pinimg.com/originals/47/4f/5f/474f5fa00f60fb5c2e47c9dfcd7b1593.jpg"
               alt=""
             />
-            <div>
+            <div className="w-[50%]">
               <div>
                 <h1 className="text-red-700 font-semibold">Full Name</h1>
                 <h1 className="text-gray-700">{profile?.fullName}</h1>
@@ -57,9 +57,9 @@ function Profile() {
               </div>
             </div>
           </div>
-          {/* <label
+          <label
             htmlFor="my-modal-edit"
-            className="btn bg-red-700 w-[200px] text-white font-semibold p-2 rounded-md text-center border-none hover:bg-red-900 hover:text-white mr-4"
+            className="btn bg-red-700 w-[100%] md:w-[200px] text-white font-semibold p-2 rounded-md text-center border-none hover:bg-red-900 hover:text-white mr-4"
           >
             Edit
           </label>
@@ -112,11 +112,9 @@ function Profile() {
                   style={{ backgroundColor: "#D2D2D240" }}
                   className="textarea textarea-bordered text-gray-600 w-full text-md"
                   placeholder="Description"
-                ></textarea> */}
+                ></textarea>
 
-                {/* {message && message} */}
-
-                {/* <button
+                <button
                   type="submit"
                   className="mt-7 btn bg-red-700 w-full text-white font-semibold p-2 rounded-md text-center border-none hover:bg-red-900 hover:text-white mr-4"
                 >
@@ -124,9 +122,10 @@ function Profile() {
                 </button>
               </form>
             </label>
-          </label> */}
+          </label>
+
         </div>
-        <div className="w-full md:w-[300px]">
+        <div className="w-full mt-5 md:mt-0 md:w-[300px]">
           <h1 className="text-2xl font-bold text-black mb-5">
             History Donation
           </h1>
