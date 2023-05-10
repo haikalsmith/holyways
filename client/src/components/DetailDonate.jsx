@@ -113,16 +113,16 @@ function DetailDonate() {
 
   return (
     <div className="" style={{ backgroundColor: "#E5E5E5" }}>
-      <div className="w-[800px] mx-auto pt-10 flex mb-5 justify-between">
-        <div className="w-[40%] overflow-hidden object-cover mr-10 rounded-md">
+      <div className="w-full p-4 flex-col md:flex-row md:w-[800px] mx-auto pt-10 flex mb-5 justify-between">
+        <div className="w-full md:w-[40%] overflow-hidden object-cover mr-10 rounded-md">
           {detailFund?.thumbnail == "" ? (
             <img className="object-cover" src={noImage} alt="" />
           ) : (
             <img className="object-cover" src={detailFund?.thumbnail} alt="" />
           )}
         </div>
-        <div className="w-[50%]">
-          <h1 className="text-black font-bold text-2xl mb-4">
+        <div className="w-full md:w-[50%]">
+          <h1 className="text-black font-bold text-2xl mb-4 mt-4 md:mt-0">
             {detailFund?.title}
           </h1>
           <div className="flex justify-between mb-2">
@@ -206,7 +206,7 @@ function DetailDonate() {
           </label>
         </div>
       </div>
-      <div className="w-[800px] mx-auto pb-20">
+      <div className="w-full p-4 md:w-[800px] mx-auto pb-20">
         <h1 className="text-black font-bold text-2xl mb-3">
           List Donation ({funderbydonation?.length})
         </h1>
