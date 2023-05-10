@@ -28,12 +28,12 @@ function Home() {
   return (
     <div className="bg-red-700">
       <div className="pt-20">
-        <div className="pt-9 w-[750px] ml-24" style={{ color: "#E8E8E8" }}>
+        <div className="w-full p-4 md:pt-9 md:w-[750px] md:ml-24" style={{ color: "#E8E8E8" }}>
           <h1 className="text-5xl font-bold mb-8">
             While you are still standing, try to reach out to the people who are
             falling.
           </h1>
-          <p className="mb-8 w-[700px]">
+          <p className="mb-8 md:w-[700px]">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industrys standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
@@ -48,7 +48,7 @@ function Home() {
         <img
           src={Header1}
           alt=""
-          className="absolute right-0 top-[160px] w-[515px]"
+          className="md:absolute md:right-0 md:top-[160px] md:w-[515px]"
         />
       </div>
 
@@ -56,11 +56,11 @@ function Home() {
         <img
           src={Header2}
           alt=""
-          className="absolute left-0 top-[570px] w-[423px]"
+          className="md:absolute md:left-0 md:top-[570px] md:w-[423px]"
         />
 
         <div
-          className="pt-40 w-[750px] mt-20 ml-[500px]"
+          className="p-4 md:pt-40 md:w-[750px] md:mt-20 md:ml-[500px]"
           style={{ color: "#000" }}
         >
           <h1 className="text-5xl font-bold mb-8">
@@ -88,7 +88,7 @@ function Home() {
           Donate Now
         </h1>
 
-        <div className="w-full md:w-[1200px] mx-auto" id="home-list">
+        <div className="w-full p-4 md:w-[1200px] mx-auto" id="home-list">
           <div className="flex gap-4 flex-wrap">
             {data?.slice(0, visible).map((item) => (
               <div
