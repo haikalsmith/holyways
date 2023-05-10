@@ -88,7 +88,7 @@ function Home() {
           Donate Now
         </h1>
 
-        <div className="w-[1200px] mx-auto" id="home-list">
+        <div className="w-full md:w-[1200px] mx-auto" id="home-list">
           <div className="flex gap-4 flex-wrap">
             {data?.slice(0, visible).map((item) => (
               <div
