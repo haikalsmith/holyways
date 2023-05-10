@@ -129,15 +129,15 @@ function ViewFund() {
 
   return (
     <div className="" style={{ backgroundColor: "#E5E5E5" }}>
-      <div className="w-[800px] mx-auto pt-10 flex mb-5 justify-between">
-        <div className="w-[40%] overflow-hidden object-cover mr-10 rounded-md">
+      <div className="w-full p-4 mx-auto mb-5 pt-10 md:flex md:w-[800px] md:flex-row md:justify-between">
+        <div className="w-full md:w-[40%] overflow-hidden object-cover mr-10 rounded-md">
           <img
             className="object-cover"
             src={donationDetail?.thumbnail}
             alt=""
           />
         </div>
-        <div className="w-[50%]">
+        <div className="w-full md:w-[50%]">
           <h1 className="text-black font-bold text-2xl mb-4">
             {donationDetail?.title}
           </h1>
@@ -223,7 +223,7 @@ function ViewFund() {
           </label>
         </div>
       </div>
-      <div className="w-[800px] mx-auto mb-10">
+      <div className="w-full p-4 md:p-0 md:w-[800px] mx-auto mb-10">
         <h1 className="text-black font-bold text-2xl mb-3">
           List Donation ({funderByDonationSucces?.length})
         </h1>
@@ -253,7 +253,7 @@ function ViewFund() {
           )}
         </div>
       </div>
-      <div className="w-[800px] mx-auto pb-10">
+      <div className="w-full p-4 md:p-0 md:w-[800px] mx-auto pb-10">
         {funderByDonationPending && (
           <>
             <h1 className="text-black font-bold text-2xl mb-3">
@@ -265,7 +265,7 @@ function ViewFund() {
                   key={item?.id}
                   className="bg-white p-2 mb-3 rounded-md flex items-center"
                 >
-                  <div className="w-[85%]">
+                  <div className="w-[70%] md:w-[85%]">
                     <h1 className="text-black font-semibold">
                       {item?.user.fullName}
                     </h1>
