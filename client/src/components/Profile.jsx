@@ -29,8 +29,8 @@ function Profile() {
 
   return (
     <div className="w-full pb-20" style={{ backgroundColor: "#E5E5E5" }}>
-      <div className="flex justify-center pt-10">
-        <div className="w-[500px]">
+      <div className="flex flex-col p-4 md:flex md:justify-center">
+        <div className="w-full md:w-[500px]">
           <h1 className="text-2xl font-bold text-black mb-5">My Profile</h1>
           <div className="flex mb-5">
             <img
@@ -126,7 +126,7 @@ function Profile() {
             </label>
           </label> */}
         </div>
-        <div className="w-[300px]">
+        <div className="w-full md:w-[300px]">
           <h1 className="text-2xl font-bold text-black mb-5">
             History Donation
           </h1>
