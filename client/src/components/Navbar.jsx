@@ -24,7 +24,7 @@ function Navbar() {
   }
 
   return (
-    <div className="navbar bg-red-700 px-10 flex items-center">
+    <div className="navbar bg-red-700 px-4 py-3 md:py-0 md:px-10 flex items-center">
       <div className="flex-1">
         <Link to={"/"}>
           <img src={brandLogo} alt="React Logo" />
@@ -64,10 +64,10 @@ function Navbar() {
               )}
             </>
           ) : (
-            <>
+            <div className="w-[50%] flex flex-row">
               <Login />
               <Register />
-            </>
+            </div>
           )}
 
         </ul>
