@@ -81,7 +81,7 @@ function FormFund() {
 
   return (
     <div className="w-full h-[700px]" style={{ backgroundColor: "#E5E5E5" }}>
-      <div className="w-[800px] mx-auto pt-8">
+      <div className="w-full p-4 pt-8 md:w-[800px] md:mx-auto">
         <h1 className="text-black text-2xl font-bold mb-4">Make Raise Fund</h1>
         <form onSubmit={(e) => handleSubmit.mutate(e)}>
           <input
@@ -130,8 +130,8 @@ function FormFund() {
 
           {message && message}
 
-          <div className="mt-6">
-            <button type="submit" className="bg-red-700 p-2 rounded-md text-white font-semibold w-[400px] text-center ml-[50%]">
+          <div className="mt-6 flex justify-end">
+            <button type="submit" className="bg-red-700 p-2 rounded-md text-white font-semibold md:w-[400px] text-center md:ml-[50%]">
               Public Fundraising
             </button>
           </div>

@@ -1,18 +1,16 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
-import { API } from "../config/Api"
-import noImage from "../assets/images/no-image.webp"
+import { API } from "../config/Api";
+import noImage from "../assets/images/no-image.webp";
 
 function RaiseFund() {
   // fetching data using useQuery
-  let { data: raisefund } = useQuery('donationRaiseFundCache', async () => {
-    const response = await API.get('/donation-by-user');
+  let { data: raisefund } = useQuery("donationRaiseFundCache", async () => {
+    const response = await API.get("/donation-by-user");
     return response.data.data;
   });
 
-  console.table(raisefund)
-
-  
+  console.table(raisefund);
 
   return (
     <div className="w-full h-[3000px]" style={{ backgroundColor: "#E5E5E5" }}>
@@ -40,14 +38,13 @@ function RaiseFund() {
                         src={noImage}
                         alt=""
                       />
-                    ): (
+                    ) : (
                       <img
                         className="object-cover w-full h-[100%]"
                         src={item?.thumbnail}
                         alt=""
                       />
                     )}
-                    
                   </div>
                   <div className="p-3">
                     <Link to={`/view-fund/${item?.id}`}>
@@ -63,7 +60,9 @@ function RaiseFund() {
                       value={item?.current_goal}
                       max={item?.goal}
                     ></progress>
-                        <p className="text-black font-semibold">Rp {item?.goal.toLocaleString('id-ID').replace(/,/g, '.')}</p>
+                    <p className="text-black font-semibold">
+                      Rp {item?.goal.toLocaleString("id-ID").replace(/,/g, ".")}
+                    </p>
                     <div className="flex justify-between items-center mt-4">
                       {/* <div>
                         <Link to={`/view-fund/${item?.id}`}>
@@ -85,7 +84,6 @@ function RaiseFund() {
               </div>
             ))}
           </div>
-
         </div>
       </div>
     </div>
