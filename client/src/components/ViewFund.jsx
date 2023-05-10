@@ -138,7 +138,7 @@ function ViewFund() {
           />
         </div>
         <div className="w-full md:w-[50%]">
-          <h1 className="text-black font-bold text-2xl mb-4">
+          <h1 className="text-black font-bold text-2xl mb-4 mt-4">
             {donationDetail?.title}
           </h1>
           <div className="flex justify-between mb-2">
